@@ -6,7 +6,7 @@ Create a UI in ClojureScript with two inputs for strings and a scramble button. 
 
 ## Launch the app
 
-Stack: Shadow-CLJS + Koacha-CLJS2 test engine + Reagent/ Re-Frame + TailwindCSS
+Stack: Shadow-CLJS + Koacha-CLJS2 (note: not so stable or my setup is bad) test engine + Reagent/ Re-Frame + TailwindCSS
 
 First run the backend engine!
 
@@ -20,17 +20,17 @@ If your run these commands, you can open the
 `http://localhost:9630/` > Shadow-CLJS Server UI (if you want to `tap>` something)
 in your browser.
 
-The tests running automatically, don't disturb you the red line at bottom (that is different instance).
 I don't use validators now at the Frontend, because in this case we can't do a lot. Of course I can filter out all special chars etc.
 
-The Frontend UI is connect to localhost:3000, so you can test the API with the UI.
-Error responses are limited depth now.
+The Frontend UI is connect to localhost:3000, so you can test the API with the UI. 
+(Human friendly error responses are from the server side)
+
 
 ### Screenshots
 
 Frontend UI
 
-![Frontend UI](screenshots/FUI.png)
+![Frontend UI](screenshots/FUI2.png)
 
 Test UI
 

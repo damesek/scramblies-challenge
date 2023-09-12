@@ -27,4 +27,14 @@ Error handling with 'malli humanized' response:
 ![Malli](ui-screenshot/malli-human.png)
 
 
+### Play from terminal
+
+Install httpie with `brew install httpie` then:
+
+```bash
+http GET :3000/v1/scramble str1=="hello" str2=="he"
+```
+
+
+
 

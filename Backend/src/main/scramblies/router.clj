@@ -23,12 +23,14 @@
 
 (defn routes [env]
   (ring/ring-handler
-      (ring/router
-        [swagger-docs
-         openapi-docs
-         ["/v1"
-          {:tags ["v1 API"]}
-          (scramble-route)]]
-        router-config)
-      (ring/routes (swagger-routes))
-    (ring/create-default-handler)))5
+    (ring/router
+      [swagger-docs
+       openapi-docs
+       ["/v1"
+        {:openapi {:tags ["v1"]}}
+        (scramble-route)]]
+      router-config)
+    (ring/routes (swagger-routes)
+                 (ring/create-default-handler))))
+
+

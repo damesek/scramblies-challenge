@@ -19,8 +19,7 @@
   ::success
   (fn [{:keys [db]} [_ coll]]
     (let [resp (->> coll
-                    (w/keywordize-keys))
-          _ (js/console.log "success! " coll " *** " resp)]
+                    (w/keywordize-keys))]
       {:db (assoc db :error nil
                      :success resp)})))
 
@@ -30,7 +29,8 @@
   ::error
   (fn [{:keys [db]} [_ coll]]
     (let [resp (->> coll
-                    (w/keywordize-keys))]
+                    (w/keywordize-keys))
+          _ (js/console.log "error! " coll " *** " (js->clj resp))]
       {:db (assoc db :error resp
                      :success nil)})))
 

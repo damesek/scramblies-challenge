@@ -6,50 +6,55 @@
             [tailwind.db :as db]))
 
 (defn scramble-form [success error field-atoms]
-  (let [rearrangable? (str (-> @success :body :scramble))]
+  (let [rearrangable? (str (-> @success :body :scramble))
+        errors      (->> @error clojure.walk/keywordize-keys)
+        error-keys (when-not (nil? @error)
+                     (->> errors keys vec))]
 
-  [:div.px-6.pb-24.pt-20.sm:pb-32.lg:px-8.lg:py-48
-   [:div.mx-auto.max-w-xl.lg:mr-0.lg:max-w-lg
-    [:p.mb-5.text-gray-400.font-light "We don't filter out the not allowed chars in the text. Test reasons."]
-    [:div.grid.grid-cols-1.gap-x-8.gap-y-6.sm:grid-cols-2
+    [:div.px-6.pb-24.pt-20.sm:pb-32.lg:px-8.lg:py-48
+     [:div.mx-auto.max-w-xl.lg:mr-0.lg:max-w-lg
+      [:p.mb-5.text-gray-400.font-light "We don't filter out the not allowed chars in the text. Test reasons."]
+      [:div.grid.grid-cols-1.gap-x-8.gap-y-6.sm:grid-cols-2
 
-     [:div
-      [:label.block.text-sm.font-semibold.leading-6.text-gray-900 {:for "first-name"} "str1"]
-      [:div.mt-2.5
-       [:input#first-name.block.w-full.rounded-md.border-0.px-3.5.py-2.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.placeholder:text-gray-400.focus:ring-2.focus:ring-inset.focus:ring-indigo-600.sm:text-sm.sm:leading-6
-        {:type "text"
-         :name "str1"
-         :on-change #(swap! field-atoms assoc
-                            :str1 (-> % .-target .-value))
-         :value (:str1 @field-atoms)}]]]
+       [:div
+        [:label.block.text-sm.font-semibold.leading-6.text-gray-900 {:for "first-name"} "str1"]
+        [:div.mt-2.5
+         [:input#first-name.block.w-full.rounded-md.border-0.px-3.5.py-2.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.placeholder:text-gray-400.focus:ring-2.focus:ring-inset.focus:ring-indigo-600.sm:text-sm.sm:leading-6
+          {:type      "text"
+           :name      "str1"
+           :on-change #(swap! field-atoms assoc
+                              :str1 (-> % .-target .-value))
+           :value     (:str1 @field-atoms)}]]]
 
-     [:div
-      [:label.block.text-sm.font-semibold.leading-6.text-gray-900 {:for "last-name"} "str2"]
-      [:div.mt-2.5
-       [:input#last-name.block.w-full.rounded-md.border-0.px-3.5.py-2.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.placeholder:text-gray-400.focus:ring-2.focus:ring-inset.focus:ring-indigo-600.sm:text-sm.sm:leading-6
-        {:type "text"
-         :name "str2"
-         :on-change #(swap! field-atoms assoc
-                            :str2 (-> % .-target .-value))
-         :value (:str2 @field-atoms)}]]]]
+       [:div
+        [:label.block.text-sm.font-semibold.leading-6.text-gray-900 {:for "last-name"} "str2"]
+        [:div.mt-2.5
+         [:input#last-name.block.w-full.rounded-md.border-0.px-3.5.py-2.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.placeholder:text-gray-400.focus:ring-2.focus:ring-inset.focus:ring-indigo-600.sm:text-sm.sm:leading-6
+          {:type      "text"
+           :name      "str2"
+           :on-change #(swap! field-atoms assoc
+                              :str2 (-> % .-target .-value))
+           :value     (:str2 @field-atoms)}]]]]
 
-    [:div.mt-8.flex.justify-end
-     [:button.rounded-md.bg-blue-400.px-3.5.py-2.5.text-center.text-md.font-light.text-white.shadow-sm.hover:bg-blue-500.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-blue-600
-      {:type     "submit"
-       :on-click (fn [e]
-                   (rf/dispatch [:possible-rearrange? (:str1 @field-atoms)
-                                                      (:str2 @field-atoms)])
-                   (reset! field-atoms {:str1 "" :str2 ""}))}
-      "rearrangable?"]]]
+      [:div.mt-8.flex.justify-end
+       [:button.rounded-md.bg-blue-400.px-3.5.py-2.5.text-center.text-md.font-light.text-white.shadow-sm.hover:bg-blue-500.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-blue-600
+        {:type     "submit"
+         :on-click (fn [e]
+                     (rf/dispatch [:possible-rearrange? (:str1 @field-atoms)
+                                   (:str2 @field-atoms)])
+                     (reset! field-atoms {:str1 "" :str2 ""}))}
+        "rearrangable?"]]]
 
-   [:div.mt-5.p-7.shadow-md
-    (when-not (nil? @success) [:p.px-2 (if (= "true" rearrangable?)
-                                         {:class "text-green-500 bg-green-100"}
-                                         {:class "text-gray-700 bg-gray-100"})
-                                         "Request Successful? " (str (-> @success :status))
-                                          " Rearrangable? " rearrangable?])
-    (when-not (nil? @error) [:p.px-2 {:class "text-red-500 bg-red-100"} "Not allowed chars? "
-                             (str "Yes: "(-> @error :debug-message))])]]))
+     [:div.mt-5.p-7.shadow-md
+      (when-not (nil? @success) [:p.p-4.rounded-md.shadow-sm (if (= "true" rearrangable?)
+                                           {:class "text-green-500 bg-green-100"}
+                                           {:class "text-gray-700 bg-gray-100"})
+                                 "Status code: " (str (-> @success :status))
+                                 [:BR] " Rearrangable? " rearrangable?])
+      (when-not (nil? @error) [:div.p-4.rounded-md.shadow-sm.text-red-500.bg-red-100
+                               (for [e error-keys]
+                                 [:p.mt-1.mb-2.text-sm.leading-1.text-red-600 "* Please modify the " (name e) " field, because: " [:BR]
+                                  [:span.text-gray-600.font-light.ml-3  (apply str (e errors))]])])]]))
 
 
 (defn public []

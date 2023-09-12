@@ -15,22 +15,25 @@
                 :init    (go)}
 
  :deps
- {org.clojure/clojure     {:mvn/version "1.11.0"}
-  integrant/integrant     {:mvn/version "0.8.1"}
-  clj-http/clj-http       {:mvn/version "3.12.3"}
-  ring/ring               {:mvn/version "1.8.1"}
-  ring-cors/ring-cors     {:mvn/version "0.1.13"}
-  metosin/reitit          {:mvn/version "0.7.0-alpha5"}
-  metosin/ring-swagger-ui {:mvn/version "5.0.0-alpha.0"}
-  ring/ring-jetty-adapter {:mvn/version "1.7.1"}
-  metosin/malli           {:mvn/version "0.12.0"}
-  metosin/jsonista        {:mvn/version "0.2.6"}
-  ring/ring-mock          {:mvn/version "0.4.0"}
+ {org.clojure/clojure               {:mvn/version "1.11.0"}
+  integrant/integrant               {:mvn/version "0.8.1"}
+  clj-http/clj-http                 {:mvn/version "3.12.3"}
+  ring/ring                         {:mvn/version "1.8.1"}
+  ring-cors/ring-cors               {:mvn/version "0.1.13"}
+  metosin/reitit                    {:mvn/version "0.7.0-alpha5"}
+  metosin/ring-swagger-ui           {:mvn/version "5.0.0-alpha.0"}
+  ring/ring-jetty-adapter           {:mvn/version "1.7.1"}
+  metosin/malli                     {:mvn/version "0.12.0"}
+  metosin/jsonista                  {:mvn/version "0.2.6"}
+  ring/ring-mock                    {:mvn/version "0.4.0"}
+  com.github.oliyh/martian          {:mvn/version "0.1.25"}
+  com.github.oliyh/martian-clj-http {:mvn/version "0.1.25"}
+  com.github.oliyh/martian-httpkit  {:mvn/version "0.1.25"}
 
-  criterium/criterium     {:mvn/version "0.4.6"}
-  citius/citius           {:mvn/version "0.2.4"}
-  environ/environ         {:mvn/version "1.2.0"}
-  org.slf4j/slf4j-nop     {:mvn/version "1.7.25"}}
+  criterium/criterium               {:mvn/version "0.4.6"}
+  citius/citius                     {:mvn/version "0.2.4"}
+  environ/environ                   {:mvn/version "1.2.0"}
+  org.slf4j/slf4j-nop               {:mvn/version "1.7.25"}}
 
  :aliases
  {:dev
