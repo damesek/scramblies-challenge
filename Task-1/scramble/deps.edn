@@ -1,0 +1,33 @@
+{:version     "0.1.0"
+ :description "Scramblies challange Task 1"
+ :url         "i-dont-have-one-yet"
+ :license     {:name "Eclipse Public License - v 2.0"
+               :url  "http://www.eclipse.org/legal/epl-v20.html"}
+ :paths
+ [;"src/config"
+  "src/main"
+  "src/resources"
+  "src/test"
+  "src/dev"
+  "classes"]
+
+ :deps
+ {org.clojure/clojure     {:mvn/version "1.11.0"}
+  criterium/criterium     {:mvn/version "0.4.6"}
+  citius/citius           {:mvn/version "0.2.4"}
+  metosin/malli           {:mvn/version "0.12.0"}
+  org.slf4j/slf4j-nop     {:mvn/version "1.7.25"}
+  }
+
+ :aliases
+ {:dev
+  {:extra-paths ["src/dev"]
+   :extra-deps  {}
+   :main-opts   ["-e" "(require,'user)"
+                 "-e" "(in-ns,'user)"]}
+
+  :test
+  {:extra-paths ["src/test"]
+   :main-opts   ["-m" "kaocha.runner"]
+   :jvm-opts    ["-Xmx512m"]
+   :extra-deps  {lambdaisland/kaocha {:mvn/version "1.70.1086"}}}}}
