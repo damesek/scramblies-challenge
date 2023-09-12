@@ -20,11 +20,11 @@ If your run these commands, you can open the
 `http://localhost:9630/` > Shadow-CLJS Server UI (if you want to `tap>` something)
 in your browser.
 
-The tests running automatically, don't disturb you the red line at bottom (that is different instance).
 I don't use validators now at the Frontend, because in this case we can't do a lot. Of course I can filter out all special chars etc.
 
-The Frontend UI is connect to localhost:3000, so you can test the API with the UI.
-Error responses are limited depth now.
+The Frontend UI is connect to localhost:3000, so you can test the API with the UI. 
+(Human friendly error responses are from the server side)
+
 
 ### Screenshots
 
