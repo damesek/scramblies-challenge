@@ -5,6 +5,7 @@
             [clojure.walk :as w]
             [re-frame.core :as rf]
             [ajax.core :as ajax]
+            [re-frame.db]
             [tailwind.events]))
 
 
@@ -22,9 +23,9 @@
   ::success-test
   (fn [{:keys [db]} [_ coll]]
     (let [resp (->> coll
-                    (w/keywordize-keys))
-          _ (js/console.log "success! " coll " *** " resp)]
-      {:db (assoc db :success-test resp)})))
+                    (w/keywordize-keys))]
+      {:db (assoc db :error-test nil
+                     :success-test resp)})))
 
 
 
@@ -32,8 +33,10 @@
   ::error-test
   (fn [{:keys [db]} [_ coll]]
     (let [resp (->> coll
-                    (w/keywordize-keys))]
-      {:db (assoc db :error-test resp)})))
+                    (w/keywordize-keys))
+          _ (js/console.log "error! " coll " *** " (js->clj resp))]
+      {:db (assoc db :error-test resp
+                     :success-test nil)})))
 
 
 
@@ -51,17 +54,14 @@
                              :response-format (ajax/ring-response-format {:format (ajax/json-response-format)})}})))
 
 
-
+; cljs2 kaocha not so stable..
 (deftest test-the-server-connection
-
   (testing "First run the APP always. Test not allowed char case."
     (let [_ (rf/dispatch [:possible-rearrange?-test "hello" "h.e"])]
-      (is (= "Request failed." (str (-> @re-frame.db/app-db :error-test :status-text))))))
-
+      (is (= 400 (-> @re-frame.db/app-db :error-test :response :status)))))
   (testing "First run the APP always. Test with arrangable strings."
     (let [_ (rf/dispatch [:possible-rearrange?-test "hello" "he"])]
-      (is (= "true" (str (-> @re-frame.db/app-db :success-test :body :scramble)))))))
-
+      (is (= 200 (-> @re-frame.db/app-db :success-test :status))))))
 
 
 

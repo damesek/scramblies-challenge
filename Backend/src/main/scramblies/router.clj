@@ -31,4 +31,4 @@
           (scramble-route)]]
         router-config)
       (ring/routes (swagger-routes))
-    (ring/create-default-handler)))5
+    (ring/create-default-handler)))
