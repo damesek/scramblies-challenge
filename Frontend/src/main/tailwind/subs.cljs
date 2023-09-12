@@ -13,4 +13,6 @@
 (rf/reg-sub
   :error-response
   (fn [db _]
-    (-> db :error)))
+    (-> db :error :response :body :humanized )))
+
+; :response :body :humanize
