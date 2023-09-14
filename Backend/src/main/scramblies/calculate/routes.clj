@@ -1,24 +1,10 @@
 (ns scramblies.calculate.routes
   (:require [scramblies.calculate.main :refer [scramble?]]
-            [scramblies.calculate.spec :refer [allowed? scramble-route-response-spec]]
-            [jsonista.core :as json]))
+            [scramblies.calculate.spec :refer [allowed? scramble-route-response-spec]]))
 
 (defn handle-scramble [{{{:keys [str1 str2]} :query} :parameters}]
    {:status 200
    :body   {:scramble (scramble? str1 str2)}})
-
-#_(defn handle-scramble [request]
-  s(let [_ (println "*req* " request)
-        p (:parameters request)
-        q (:query p)
-        str1 (:str1 q)
-        str2 (:str2 q)
-         res (scramble? str1 str2)]
-    {:status 200
-     :body {:scramble (if (boolean? res)
-                        res
-                        (println (str res)))}}))
-
 
 
 (defn scramble-route

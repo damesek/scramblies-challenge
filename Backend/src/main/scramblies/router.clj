@@ -2,7 +2,6 @@
   (:require [reitit.ring :as ring]
             [reitit.coercion.malli]
             [reitit.ring.malli]
-            [reitit.openapi :as openapi]
             [reitit.swagger-ui :as swagger-ui]
             [scramblies.config :refer [swagger-docs openapi-docs
                                        router-config]]

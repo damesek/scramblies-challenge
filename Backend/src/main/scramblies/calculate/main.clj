@@ -1,6 +1,5 @@
 (ns scramblies.calculate.main
   (:require [clojure.string :refer [replace-first]]
-            [scramblies.calculate.spec :refer [allowed?]]
             [malli.core :as m]
             [malli.error :as me]))
 

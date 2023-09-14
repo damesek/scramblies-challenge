@@ -25,7 +25,6 @@
 
 (defn api-test [uri]
   (let [resp (test-endpoint :get uri)]
-    ;(println "Debug: resp" resp)
     (case (:status resp)
       400 (->> resp :body :humanized)
       200 (->> resp :body :scramble)
@@ -78,6 +77,8 @@
                 second
                 (clojure.walk/keywordize-keys)
                 :humanized)))))
+
+
 
 (deftest system-openapi-test
   "We test the openapi functionality"
