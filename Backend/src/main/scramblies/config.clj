@@ -22,8 +22,8 @@
                            :description "Complete the function (scramble str1 str2) that returns true if a portion of str1
                                          characters can be rearranged to match str2, otherwise returns false."
                            :version     "0.0.1"}
-                    ;; used in /secure APIs below
-                    :tags [{:name "v1", :description "v1 api"}]}
+                    :tags [{:name        "v1",
+                            :description "v1-api"}]}
           :handler (swagger/create-swagger-handler)}}])
 
 
@@ -35,13 +35,15 @@
                            :description "Complete the function (scramble str1 str2) that returns true if a portion of str1
                                          characters can be rearranged to match str2, otherwise returns false"
                            :version     "0.0.1"}}
+          :tags    [{:name        "v1",
+                     :description "v1-api"}]
           :handler (openapi/create-openapi-handler)}}])
 
 
 
 (def router-config
   {;;:reitit.middleware/transform dev/print-request-diffs ;; pretty diffs
-   ;;:validate spec/validate ;; enable spec validation for route data
+   ;; :validate spec/validate ;; enable spec validation for route data
    ;;:reitit.spec/wrap spell/closed ;; strict top-level validation
    :exception pretty/exception
    :data      {:coercion   (reitit.coercion.malli/create
@@ -56,7 +58,8 @@
                               ;; malli options
                               :options          nil})
                :muuntaja   m/instance
-               :middleware [[wrap-cors :access-control-allow-origin [#".*"]
+               :middleware [[wrap-cors
+                             :access-control-allow-origin [#".*"]
                              :access-control-allow-methods [:get :put :post :patch :delete]]
                             ;; swagger & openapi
                             swagger/swagger-feature
@@ -76,7 +79,4 @@
                             ;; coercing request parameters
                             coercion/coerce-request-middleware
                             ;; multipart
-                            multipart/multipart-middleware
-                            ;; this is just a test project, but... :todo add security if used in production
-
-                            ]}})
+                            multipart/multipart-middleware]}})

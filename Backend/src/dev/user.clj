@@ -1,10 +1,8 @@
 (ns user
-  (:require [cheshire.core :as json]
-            [integrant.repl :as ig-repl]
+  (:require [integrant.repl :as ig-repl]
             [integrant.core :as ig]
             [integrant.repl.state :as state]
-            [scramblies.server]
-            [clj-http.client :as http]))
+            [scramblies.server]))
 
 
 (ig-repl/set-prep!
@@ -19,39 +17,17 @@
 (def db (-> state/system :db/postgres))
 
 
-;(comment
-;  (-> {:method :get :uri "/index.html"}
-;      ((swagger-routes))
-;      (update :body slurp))
-;
-;  (-> {:method     :get :uri "/v1/scramble"
-;       :parameters {:query {:str1 "1" :str2 "2"}}}
-;      ((ring/ring-handler
-;         (ring/router
-;           [swagger-docs
-;            openapi-docs
-;            ["/v1"
-;             {:tags ["v1 API"]}
-;             (scramble-route)]]
-;           router-config)))
-;      #_(update :body #(some-> % slurp)))
-;
-;
-;  (-> (ring/router
-;        [swagger-docs
-;         openapi-docs
-;         ["/v1"
-;          {:tags ["v1 API"]}
-;          (scramble-route)]]
-;        router-config)
-;      (reitit.core/routes
-;        (swagger-ui/create-swagger-ui-handler
-;          {:path   "/"
-;           :config {:validatorUrl     nil
-;                    :urls             [{:name "swagger", :url "swagger.json"}
-;                                       {:name "openapi", :url "openapi.json"}]
-;                    :urls.primaryName "openapi"
-;                    :operationsSorter "alpha"}})
-;        ))
-;
-;  )
+
+
+(comment
+
+  ;(require '[martian.core :as martian]
+  ;         '[martian.clj-http :as martian-http]
+  ;         '[martian.interceptors :as mi])
+  ;
+  ;(let [m (martian-http/bootstrap-openapi "http://localhost:3000/openapi.json"
+  ;                                        {:server-url "http://localhost:3000"})]
+  ;  (martian/response-for m :get-scramble {:str1 "dsdas"
+  ;                                         :str2 "dsd.s"}))
+
+  )

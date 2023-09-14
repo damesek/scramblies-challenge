@@ -2,6 +2,7 @@
   (:require [reitit.ring :as ring]
             [reitit.coercion.malli]
             [reitit.ring.malli]
+            [reitit.openapi :as openapi]
             [reitit.swagger-ui :as swagger-ui]
             [scramblies.config :refer [swagger-docs openapi-docs
                                        router-config]]
@@ -23,12 +24,14 @@
 
 (defn routes [env]
   (ring/ring-handler
-      (ring/router
-        [swagger-docs
-         openapi-docs
-         ["/v1"
-          {:tags ["v1 API"]}
-          (scramble-route)]]
-        router-config)
-      (ring/routes (swagger-routes))
-    (ring/create-default-handler)))
+    (ring/router
+      [swagger-docs
+       openapi-docs
+       ["/v1"
+        {:openapi {:tags ["v1"]}}
+        (scramble-route)]]
+      router-config)
+    (ring/routes (swagger-routes)
+                 (ring/create-default-handler))))
+
+
