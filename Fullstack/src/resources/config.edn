@@ -1,0 +1,6 @@
+{:server/jetty {:handler #ig/ref :scramblies/app
+                ;:handler #ig/ref :server/shadow
+                :port 3000}
+ :scramblies/app   {:jdbc-url #ig/ref :db/postgres}
+ :db/postgres  {:jdbc-url "jdbc-url"}
+ }
